@@ -53,6 +53,12 @@ header {
   z-index: 999;
 }
 
+@media (max-width: 885px) {
+  header {
+    position: relative;
+  }
+}
+
 .nav-container {
   padding: 10px 33px;
   width: 100%;
