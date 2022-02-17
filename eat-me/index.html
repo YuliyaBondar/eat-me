@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+  <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
   <title>eat-me</title>
 </head>
 <body>
@@ -35,14 +37,14 @@
           <a href="#"><img src="./assets/svg/logo.svg" alt="logo"></a>
           <p>Разработка как спорт. Важен только результат</p>
           <div class="search-conainer">
-            <button class="search"></button>
+            <button class="search violet-svg"></button>
             <input type="text" placeholder="Введите текст для поиска">
-            <button class="close-search"></button>
+            <button class="close-search violet-svg"></button>
           </div>
-          <a class="favourites" href="#"><img src="./assets/svg/heart.svg" alt="heart">
+          <a class="favourites" href="#"><img class="violet-svg" src="./assets/svg/heart.svg" alt="heart">
           Избранное
           </a>
-          <a class="cart" href="#"><img src="./assets/svg/cart+number.svg" alt="cart">
+          <a class="cart" href="#"><img class="violet-svg" src="./assets/svg/cart+number.svg" alt="cart">
           20 888.50 р.
           </a>
         </div>        
@@ -51,8 +53,95 @@
   </header>
   <main>
     <div class="container">
-      <img class="main-slide" src="./assets/sander-dalhuisen-nA6Xhnq2Od8-unsplash 1.jpg" alt="slide1">
+      <div class="main-slider"></div>
+      <div class="promo-block">
+        <h2>Promo block</h2>
+        <div class="promo-slider"></div>
+      </div>
+      <div class="form-block">
+        <h3>Form style</h3>
+        <div class="form-inputs-container">
+          <div class="inputs-container">
+            <div class="btns-row">
+              <input class="radio-input" type="radio">
+              <label class="radio-label">В корзину</label>
+            </div>
+            <div class="btns-row">
+              <input class="radio-input" type="radio">
+              <label class="radio-label">В корзину</label>
+            </div>
+          </div>
+          <div class="inputs-container">
+            <div class="btns-row">
+              <input class="checkbox-input" type="checkbox">
+              <label class="checkbox-label">В корзину</label>
+            </div>
+            <div class="btns-row">
+              <input class="checkbox-input" type="checkbox">
+              <label class="checkbox-label">В корзину</label>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>    
   </main>
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script type="text/javascript" src="slick/slick.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('.main-slider').slick({
+        lazyLoad: 'ondemand',
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 5000,
+      });
+
+      $('.promo-slider').slick({
+        lazyLoad: 'ondemand',
+        dots: true,
+        infinite: true,
+        slidesToShow: 4,
+        slidesToScroll: 4
+      });
+    });
+
+    const mainSlider = document.querySelector('.main-slider');
+    const mainSlides = new Array(6).fill(0).map((_, index) => {
+      const mainSlide = document.createElement('DIV');
+      mainSlide.classList.add('main-slide');
+      mainSlide.style.backgroundImage = `url('./assets/main-slider/slide-${index + 1}.jpg')`;
+      return mainSlide;
+    });
+    mainSlider.append(...mainSlides);
+
+    function getRandomNum (min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    const promoSlider = document.querySelector('.promo-slider');
+    const promoSlides = new Array(55).fill(0).map(() => {
+      const promoSlide = document.createElement('DIV');
+      promoSlide.classList.add('promo-slide');
+      promoSlide.innerHTML = `
+      <img class="promo-slide-img" src='./assets/promo-slider/${getRandomNum(1, 20)}.jpg'>
+      <div class="card-row-first">
+        <div class="availability">В наличии</div>
+        <div class="code">Код: 4744481010818</div>
+      </div>
+      <p class="card-description">Консервы пастеризованные. Бульон куриный жидкий., 350мл Консервы пастеризованные. Бульон</p>
+      <div class="cost-row">
+        <div class="cost"><span>500.20 р.</span><span>600.20 р.</span></div>
+        <img class="violet-svg" src="./assets/svg/cart+number.svg" alt="cart">
+      </div>
+      `;
+      return promoSlide;
+    });
+    promoSlider.append(...promoSlides);
+  </script>
+  
 </body>
 </html>
